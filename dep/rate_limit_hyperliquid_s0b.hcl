@@ -1,10 +1,5 @@
-# db_backend API key. Never commit the value: supply it at submit time with
-#   NOMAD_VAR_db_key=... nomad job run <this file>
-# (or -var-file pointing at an uncommitted file).
-variable "db_key" {
-  type = string
-}
-
+# DATABASE_KEY comes from BWS (project "common") at run time via
+# with-database-key.sh; it is never in this file or the job env.
 job "hyperliquid-s0b-rate-limit" {
   datacenters = ["dc1"]
   type        = "batch"
@@ -22,8 +17,8 @@ job "hyperliquid-s0b-rate-limit" {
       driver = "raw_exec"
 
       config {
-        command = "/home/admin/anaconda3/bin/python"
-        args    = ["/home/admin/prod/hyperliquid-python-sdk/examples/rate_limit_info.py"]
+        command = "/bin/bash"
+        args    = ["/home/admin/prod/hyperliquid-python-sdk/dep/with-database-key.sh", "/home/admin/anaconda3/bin/python", "/home/admin/prod/hyperliquid-python-sdk/examples/rate_limit_info.py"]
       }
 
       resources {
@@ -32,7 +27,6 @@ job "hyperliquid-s0b-rate-limit" {
       }
 
       env {
-        DB_KEY = var.db_key
         ACCOUNT = "S0B"
         ADDRESS = "0x097bf9331ebd626ddecf9337bd84bbe046b0eff8"
       }
