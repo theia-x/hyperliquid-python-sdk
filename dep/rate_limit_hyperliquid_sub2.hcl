@@ -1,6 +1,6 @@
 # DATABASE_KEY comes from BWS (project "common") at run time via
 # with-database-key.sh; it is never in this file or the job env.
-job "hyperliquid-s0b-rate-limit" {
+job "hyperliquid-sub2-rate-limit" {
   datacenters = ["dc1"]
   type        = "batch"
 
@@ -27,8 +27,8 @@ job "hyperliquid-s0b-rate-limit" {
       }
 
       env {
-        ACCOUNT = "S0B"
-        ADDRESS = "0x097bf9331ebd626ddecf9337bd84bbe046b0eff8"
+        ACCOUNT = "sub2"
+        ADDRESS = "0x2d4cec0b2920bc3b3359f73c7b12a031800d17bd"
       }
     }
   }
